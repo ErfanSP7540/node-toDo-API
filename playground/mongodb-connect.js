@@ -9,7 +9,7 @@ MongoClient.connect('mongodb://localhost:27017',(error,client)=>{
     console.log('successfully connect to DB');
 
     const db = client.db('TodoApp')
-    db.collection('Users').insertOne({name:'erfan',family:'seidi',location:'Arak-markazi'/*,_id:123*/},(er,res)=>{
+    db.collection('Users').insertOne({name:'erfan',family:'seidi',location:'arak ',compelete:false/*,_id:123*/},(er,res)=>{
         if(er){
             return console.log('unable to record')
         }
