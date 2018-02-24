@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 // })
 
 
-app.post('/todos',(req,res)=>{
+app.post('/user',(req,res)=>{
 
 var newuser = new userModel({
                                 name :req.body.name,
@@ -35,20 +35,46 @@ var newuser = new userModel({
                                 location:req.body.location,
                                 age:req.body.age,
                                 })
-                                
-    
     newuser.save()
     .then(  doc=>{  res.status(200).send(req.body)
                     return console.log( 'successfully document recorded : \n',doc)
                  })
     .catch(  e=>{  console.log( 'error ' , e ) ;res.status(400).send(req.body)})
-
-
-    
-
     })    
 
 
+
+app.post('/todo',(req,res)=>{
+
+        var newTodo = new todoModel({ text :req.body.text})
+
+            newTodo.save()
+            .then(  doc=>{  res.status(200).send(req.body)
+                            return console.log( 'successfully document recorded : \n',doc)
+                         })
+            .catch(  e=>{  console.log( 'error ' , e ) ;res.status(400).send(req.body)})
+}) 
+//todos
+
+app.get('/todos',(req,res)=>{
+
+
+        todoModel.find()
+        .then(  doc=>{  res.status(200).send(doc)
+                        return console.log( 'successfully document recorded : \n',doc)
+                     })
+        .catch(  e=>{  console.log( 'error ' , e ) ;res.status(400).send(req.body)})
+})
+
+app.get('/users',(req,res)=>{
+
+
+    userModel.find()
+    .then(  doc=>{  res.status(200).send({useres:doc } )
+                    return console.log( 'successfully document recorded : \n',doc)
+                 })
+    .catch(  e=>{  console.log( 'error ' , e ) ;res.status(400).send(req.body)})
+})
 
 // app.use((req,res,next)=>{
 //     console.log('url    : ',req);
@@ -61,3 +87,5 @@ var newuser = new userModel({
 
 
 app.listen(3000);
+
+module.exports = { app }
